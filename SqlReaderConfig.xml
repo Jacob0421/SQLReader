@@ -1,14 +1,21 @@
 <config>
-	<Extract ExtractName="Customers">
-		<QueryType>StoredProc</QueryType>
-		<StoredProcName>GetCustomers</StoredProcName>
-		<OutputLocation>C:\Users\Jacob\Documents\C# Projects\SQLReader\TestOutputPath\</OutputLocation>
-		<OutputFileName>SQLReaderOutput.csv</OutputFileName>
-	</Extract>
-	<Extract ExtractName="NOTCustomers">
-		<QueryType>StoredProc</QueryType>
-		<StoredProcName>GetCustomers</StoredProcName>
-		<OutputLocation>C:\Users\Jacob\Documents\C# Projects\SQLReader\TestOutputPath\</OutputLocation>
-		<OutputFileName>SQLReaderOutput.csv</OutputFileName>
-	</Extract>
+	<DBConnections>
+		<Connection DBName ="Dev">
+			<ConnectionString>Data Source=DESKTOP-JACOB; Initial Catalog = Dev; Integrated Security = True</ConnectionString>
+		</Connection>
+	</DBConnections>
+	<Extracts>
+		<Extract ExtractName="Customers">
+			<QueryType>StoredProc</QueryType>
+			<StoredProcName>GetCustomers</StoredProcName>
+			<OutputLocation>C:\Users\Jacob\Documents\C# Projects\SQLReader\TestOutputPath\</OutputLocation>
+			<OutputFileName>SQLReaderOutput.csv</OutputFileName>
+		</Extract>
+		<Extract ExtractName="NOTCustomers">
+			<QueryType>StoredProc</QueryType>
+			<StoredProcName>GetCustomers</StoredProcName>
+			<OutputLocation>C:\Users\Jacob\Documents\C# Projects\SQLReader\TestOutputPath\</OutputLocation>
+			<OutputFileName>SQLReaderOutput.csv</OutputFileName>
+		</Extract>
+	</Extracts>
 </config>
