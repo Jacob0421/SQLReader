@@ -10,16 +10,44 @@ namespace SQLReader
     public class ProcessLogger
     {
 
-        public ProcessLogger() { }
+        //TODO: Add DB connection and output to logging table of SQL Server as well.
+        public ProcessLogger() { 
+        
+        }
 
-        public static void Write(string message, bool stopProcessing) {
+        public static void Log(string message, string messageSeverity, string processID, string processName, string? processor, string? threadNum) {
 
-            if (stopProcessing)
+            LogToConsole(processID, processName, messageSeverity, message, processor, threadNum);
+
+        }
+
+        private static void LogToConsole(string processID, string processName, string severity,string? processor, string? threadNum, string message)
+        {
+            Console.WriteLine("Error in ProcessId: " + processID + "- " + processName + "\n" +
+                "Severity: " + severity + "\n");
+
+            if (processor != null)
             {
-                Console.Error.WriteLine(message);
-                Process.GetCurrentProcess().Kill();
-            } else { Console.Error.WriteLine(message); }
+                Console.WriteLine("Processor: " + processor);
+            }
+            if(threadNum != null)
+            {
+                Console.WriteLine("Thread Number: " + threadNum);
+            }
 
+            Console.WriteLine(message);
+
+            return;
+        }
+
+        private static void LogToFile()
+        {
+            return;
+        }
+
+        private static void LogToSQL()
+        {
+            return;
         }
 
     }

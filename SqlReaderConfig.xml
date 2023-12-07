@@ -4,9 +4,16 @@
 			<ConnectionString>Data Source=DESKTOP-JACOB; Initial Catalog = Dev; Integrated Security = True</ConnectionString>
 		</Connection>
 	</DBConnections>
+	<Logging>
+		<Log>
+			<OutDirectory>C:\Users\Jacob\Documents\C# Projects\SQLReader\TestOutputPath\</OutDirectory>
+			<LoggingTable>Dev.Logging.ProcessLog</LoggingTable>
+		</Log>
+	</Logging>
 	<Extracts>
 		<Extract ExtractName="Customers">
 			<QueryType>StoredProc</QueryType>
+			<DBConnection>Dev</DBConnection>
 			<StoredProcName>GetCustomers</StoredProcName>
 			<OutputLocation>C:\Users\Jacob\Documents\C# Projects\SQLReader\TestOutputPath\</OutputLocation>
 			<OutputFileName>SQLReaderOutput.csv</OutputFileName>

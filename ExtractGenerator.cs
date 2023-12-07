@@ -1,52 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using SQLReader;
+﻿using System.Xml.Linq;
 
 namespace SQLReader
 {
     internal class ExtractGenerator
     {
 
-        internal const string configLocation = @"C:\Users\Jacob\Documents\C# Projects\SQLReader\SqlReaderConfig.xml";
-        internal string ExtractName = "";
-        internal const int fetchXMLRetryCount = 3;
+        public static bool GenerateExtract(string extractName)
+        { 
+            ConfigHelper configHelper = new ConfigHelper();
 
-        public ExtractGenerator(string nameOfExtract) { 
-            ExtractName = nameOfExtract;
-        }
+            XElement config = configHelper.GetExtractXML(extractName);
 
+            string outputDirectory = config.Element("OutputLocation").Value;
+            string outputFilename = config.Element("OutputFileName").Value;
+            string sp = config.Element("StoredProcName").Value;
+            string DBName = config.Element("DBConnection").Value;
 
-        private static XElement GetExtractElement()
-        {
+            string connStr = configHelper.GetConnectionString(DBName);
 
-            XElement? configXML = null; 
-            XElement? outputElement = null;
-
-            int retrycount = 0;
-
-            bool isFound = false;
-
-            while (!isFound && retrycount < fetchXMLRetryCount)
+            if(outputDirectory.Last().ToString() != "\\")
             {
-                try
-                {
-                    configXML = XElement.Load(configLocation);
-                    outputElement = configXML.Elements("Extract").Single(x => x.Attribute("ExtractName").Value == "Customers");
-
-                } catch (Exception e)
-                {
-                    retrycount++;
-
-                    ProcessLogger.Write("unable to load XML for Customers from config location. starting retry retryCount of fetchXML RetryCount", false);
-                    //unable to load XML for Customers from config location. starting retry retryCount of fetchXML RetryCount
-                }
+                outputDirectory += "\\";
             }
 
-            return outputElement;
+            string outputLocation = outputDirectory + outputFilename;
+
+            ExecSQL.ExecStoredProc(connStr, sp, outputLocation);
+
+            return true; 
         }
+
     }
 }
