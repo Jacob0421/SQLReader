@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SQLReader": {
+      "commandName": "Project",
+      "commandLineArgs": "-tt extract -n customers"
+    }
+  }
+}

@@ -14,8 +14,6 @@ namespace SQLReader
         private static XElement configXML;
 
         public ConfigHelper() {
-
-            Console.WriteLine(ConfigurationManager.AppSettings["PrimaryConfig"]);
             var loadedXML = XElement.Load(ConfigurationManager.AppSettings["PrimaryConfig"]);
 
             if (loadedXML == null) {
@@ -41,7 +39,7 @@ namespace SQLReader
         {
             try
             {
-                XElement extractXML = configXML.Descendants("Extract").First(x => (string)x.Attribute("ExtractName") == extractName);
+                XElement extractXML = configXML.Descendants("Extract").First(x => (string)x.Attribute("ExtractName").Value.ToLower() == extractName.ToLower());
                 return extractXML;
 
             } catch (InvalidOperationException)
